@@ -41,9 +41,11 @@ with open(file[0]) as data:
     print(unit_row, loc_row, meas_row, counter)
     data.seek(0)
     units = pd.read_csv(data, sep=';', skiprows=[unit_row] + [x for x in range(loc_row, counter)])
-
-
+    data.seek(0)
+    locations = pd.read_csv(data, sep=';', skiprows=[x for x in range(loc_row + 1)] + [x for x in range(meas_row, counter)])
+    data.seek(0)
+    measurements = pd.read_csv(data, sep=';', skiprows=[x for x in range(meas_row + 1)])
 os.remove(file[0])
 
-print(units)
+print(measurements)
 
